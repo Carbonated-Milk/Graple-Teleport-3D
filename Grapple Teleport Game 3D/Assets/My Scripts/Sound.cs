@@ -9,6 +9,8 @@ public class Sound
 
     [Range(0f,1f)]
     public float volume;
+    [HideInInspector]
+    public float adjustedVolume;
 
     [Range(.1f,3f)]
     public float pitch;

@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public float JumpPow;
     public float speed;
 
-    public static float sensetivity;
+    public static float sensetivity = .5f;
     private Camera cam;
     private Rigidbody rb;
     private PlayerControls playerControls;
@@ -21,16 +21,14 @@ public class Player : MonoBehaviour
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
         playerControls.Player.Jump.performed += Jump;
-        
+
         playerControls.Player.Movement.performed += Movement;
-        
+
         playerControls.Player.Shift.started += Sprint;
         playerControls.Player.Shift.canceled += Sprint;
 
         playerControls.Player.Interact.performed += Action;
         playerControls.Player.Interact.canceled += Action;
-
-        ChangeSensitivity(.5f);
     }
 
     private void Update()
@@ -56,7 +54,7 @@ public class Player : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if (context.performed)
         {
             rb.AddForce(Vector3.up * JumpPow);
         }
@@ -71,11 +69,11 @@ public class Player : MonoBehaviour
 
     public void Sprint(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             speed *= 1.5f;
         }
-        else if(context.canceled)
+        else if (context.canceled)
         {
             speed /= 1.5f;
         }
@@ -83,25 +81,20 @@ public class Player : MonoBehaviour
     public void Action(InputAction.CallbackContext context)
     {
         IAction action = GetComponent<IAction>();
-        if(context.performed)
+        if (context.performed)
         {
             action.Action(0);
         }
-        else if(context.canceled)
+        else if (context.canceled)
         {
             action.Action(1);
         }
     }
 
-   public static void ChangeSensitivity(float newSensetivity)
+    public static void ChangeSensitivity(float newSensetivity)
     {
         Player.sensetivity = newSensetivity;
     }
-}
-
-public static class PlayerOptions 
-{
-     
 }
 
 public interface IAction

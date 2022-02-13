@@ -9,7 +9,9 @@ public class AudioManager : MonoBehaviour
     public SoundOrginizer[] soundHolders;
     [HideInInspector]
     public List<Sound> sounds;
-
+    
+    [HideInInspector]
+    public static float masterVolume = .5f;
     public static AudioManager instance;
 
     void Awake()
@@ -46,11 +48,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        Play("CaveTheme");
-    }
-
     private void Update()
     {
         
@@ -79,7 +76,6 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning(name + "doesn't exist you moron");
             return;
         }
-        
         s.source.Stop();
     }
 
@@ -93,6 +89,11 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(Play("Win").source.clip.length);
         Play("Ambiant Nature");
         //GameManager.gameStart = false;
+    }
+
+    public static void ChangeMasterVolume(float newVolume)
+    {
+        AudioListener.volume = newVolume * 2;
     }
 }
 
