@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public float JumpPow;
     public float speed;
 
-    public float sensetivity;
+    public static float sensetivity;
     private Camera cam;
     private Rigidbody rb;
     private PlayerControls playerControls;
@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
         playerControls.Player.Jump.performed += Jump;
+        
         playerControls.Player.Movement.performed += Movement;
         
         playerControls.Player.Shift.started += Sprint;
@@ -28,6 +29,8 @@ public class Player : MonoBehaviour
 
         playerControls.Player.Interact.performed += Action;
         playerControls.Player.Interact.canceled += Action;
+
+        ChangeSensitivity(.5f);
     }
 
     private void Update()
@@ -89,6 +92,16 @@ public class Player : MonoBehaviour
             action.Action(1);
         }
     }
+
+   public static void ChangeSensitivity(float newSensetivity)
+    {
+        Player.sensetivity = newSensetivity;
+    }
+}
+
+public static class PlayerOptions 
+{
+     
 }
 
 public interface IAction
