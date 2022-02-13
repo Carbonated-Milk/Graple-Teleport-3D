@@ -295,7 +295,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102a307af68dcf1499da7ad103fa422a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundHolders: []
+  soundHolders:
+  - name: Themes
+    sounds:
+    - name: CaveTheme
+      clip: {fileID: 8300000, guid: 3971c07cc9c83ad478b14781e58b361a, type: 3}
+      volume: 0.457
+      pitch: 1
+      loop: 1
+      source: {fileID: 0}
   sounds: []
 --- !u!4 &1513805717
 Transform:

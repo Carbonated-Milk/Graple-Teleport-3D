@@ -48,7 +48,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Play("Ambiant Nature");
+        Play("CaveTheme");
     }
 
     private void Update()
