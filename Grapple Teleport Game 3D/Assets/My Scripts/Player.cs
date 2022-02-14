@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
         playerControls.Player.Interact.performed += Action;
         playerControls.Player.Interact.canceled += Action;
+
+        playerControls.Player.Esc.performed += EscMenu;
     }
 
     private void Update()
@@ -77,6 +79,15 @@ public class Player : MonoBehaviour
         {
             speed /= 1.5f;
         }
+    }
+    public void EscMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            StartMenu.instance.transform.Find("Game Options").gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+
     }
     public void Action(InputAction.CallbackContext context)
     {

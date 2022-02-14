@@ -65,6 +65,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f13cda2-4247-4c4e-97bb-8a56e317994f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -177,6 +185,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2d8b2c4-bf51-4b63-9fe3-f214ffc3432c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -191,6 +210,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_Shift = m_Player.FindAction("Shift", throwIfNotFound: true);
         m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -246,6 +266,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Shift;
     private readonly InputAction m_Player_Click;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Esc;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -256,6 +277,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Shift => m_Wrapper.m_Player_Shift;
         public InputAction @Click => m_Wrapper.m_Player_Click;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Esc => m_Wrapper.m_Player_Esc;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +305,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Esc.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEsc;
+                @Esc.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEsc;
+                @Esc.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEsc;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -305,6 +330,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Esc.started += instance.OnEsc;
+                @Esc.performed += instance.OnEsc;
+                @Esc.canceled += instance.OnEsc;
             }
         }
     }
@@ -317,5 +345,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnShift(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnEsc(InputAction.CallbackContext context);
     }
 }

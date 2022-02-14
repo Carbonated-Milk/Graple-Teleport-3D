@@ -40,6 +40,10 @@ public class StartMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play(l.startingThemeName);
         SceneManager.LoadScene(l.levelIndex);
     }
+    public void SetTimeScale(float newTime)
+    {
+        Time.timeScale = newTime;
+    }
 
 }
 
