@@ -36,6 +36,7 @@ public class StartMenu : MonoBehaviour
 
     public void LoadScene(int sceneNum)
     {
+        FindObjectOfType<AudioManager>().StopAllSongs();
         Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
         FindObjectOfType<AudioManager>().Play(l.startingThemeName);
         SceneManager.LoadScene(l.levelIndex);
@@ -43,6 +44,17 @@ public class StartMenu : MonoBehaviour
     public void SetTimeScale(float newTime)
     {
         Time.timeScale = newTime;
+    }
+
+    public void CurserLock()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    public void CurserUnlock()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
 }

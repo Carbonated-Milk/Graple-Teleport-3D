@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         playerControls.Player.Interact.performed += Action;
         playerControls.Player.Interact.canceled += Action;
 
-        playerControls.Player.Esc.performed += EscMenu;
+        playerControls.Player.Tab.performed += TabMenu;
     }
 
     private void Update()
@@ -80,11 +80,15 @@ public class Player : MonoBehaviour
             speed /= 1.5f;
         }
     }
-    public void EscMenu(InputAction.CallbackContext context)
+    public void TabMenu(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             StartMenu.instance.transform.Find("Game Options").gameObject.SetActive(true);
+            StartMenu.instance.transform.Find("PlayerUI").gameObject.SetActive(false);
             Time.timeScale = 0;
         }
 

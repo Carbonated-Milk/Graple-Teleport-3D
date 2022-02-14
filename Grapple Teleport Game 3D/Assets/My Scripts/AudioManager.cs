@@ -91,6 +91,14 @@ public class AudioManager : MonoBehaviour
         //GameManager.gameStart = false;
     }
 
+    public void StopAllSongs()
+    {
+        foreach(Sound sound in sounds)
+        {
+            Stop(sound.name);
+        }
+    }
+
     public static void ChangeMasterVolume(float newVolume)
     {
         AudioListener.volume = newVolume * 2;

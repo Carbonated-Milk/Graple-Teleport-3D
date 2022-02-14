@@ -54,7 +54,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Esc",
+                    "name": "Tab",
                     "type": "Button",
                     "id": "6f13cda2-4247-4c4e-97bb-8a56e317994f",
                     "expectedControlType": "Button",
@@ -176,11 +176,11 @@
                 {
                     "name": "",
                     "id": "d2d8b2c4-bf51-4b63-9fe3-f214ffc3432c",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Esc",
+                    "action": "Tab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
