@@ -66,7 +66,10 @@ public class Player : MonoBehaviour
     public void Movement(InputAction.CallbackContext context)
     {
         Vector2 moveVector = context.ReadValue<Vector2>() * speed;
-        rb.AddForce(transform.forward * moveVector.y + transform.right * moveVector.x);
+        Vector2 xzVel = Vector2.right * rb.velocity.x + Vector2.up * rb.velocity.z;
+        //rb.velocity = rb.velocity.
+        rb.velocity = (Vector3)Vector2.Lerp(xzVel.normalized, (Vector2)transform.forward * moveVector.y + (Vector2)transform.right * moveVector.x, .5f) * xzVel.magnitude + Vector3.up * rb.velocity.y;
+        //rb.AddForce(transform.forward * moveVector.y + transform.right * moveVector.x);
     }
 
     public void Sprint(InputAction.CallbackContext context)
