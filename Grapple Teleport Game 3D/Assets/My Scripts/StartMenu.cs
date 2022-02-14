@@ -41,6 +41,17 @@ public class StartMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play(l.startingThemeName);
         SceneManager.LoadScene(l.levelIndex);
     }
+
+    public void LoadLevel(int sceneNum)
+    {
+        CurserLock();
+        StartMenu.instance.transform.Find("PlayerUI").gameObject.SetActive(true);
+
+        FindObjectOfType<AudioManager>().StopAllSongs();
+        Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
+        FindObjectOfType<AudioManager>().Play(l.startingThemeName);
+        SceneManager.LoadScene(l.levelIndex);
+    }
     public void SetTimeScale(float newTime)
     {
         Time.timeScale = newTime;
