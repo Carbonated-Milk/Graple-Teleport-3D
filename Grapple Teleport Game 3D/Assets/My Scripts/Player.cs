@@ -9,17 +9,25 @@ public class Player : MonoBehaviour
     public float speed;
     public float interpolationNum;
 
-    Vector3 respawn;
-
     public static float sensetivity = .5f;
     public static bool physicsBased = false;
     private Camera cam;
     private Rigidbody rb;
     private PlayerControls playerControls;
 
+    public static GameObject playerObject;
+
     private void Awake()
     {
-        respawn = transform.position;
+        if (playerObject == null)
+        {
+            playerObject = gameObject;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         rb = GetComponent<Rigidbody>();
         cam = transform.GetComponentInChildren<Camera>();
@@ -116,11 +124,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Die()
-    {
-        transform.position = respawn;
-        rb.velocity = Vector3.zero;
-    }
+    
 
     public static void ChangeSensitivity(float newSensetivity)
     {
@@ -131,7 +135,7 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Instant Death"))
         {
-            Die();
+            GetComponent<Lives>().Die();
         }
     }
 }

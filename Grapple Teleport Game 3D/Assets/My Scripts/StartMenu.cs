@@ -10,7 +10,11 @@ public class StartMenu : MonoBehaviour
 
     public Animator topDoor;
 
+    private GameObject[] panels;
+
     public static StartMenu instance;
+
+    private float waitTime = 1.5f;
     void Awake()
     {
         //doesn't destroy menu manager
@@ -24,16 +28,18 @@ public class StartMenu : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+
+        panels = new GameObject[transform.childCount - 2];
+        for(int i = 0; i < transform.childCount - 2; i++)
+        {
+            panels[i] = transform.GetChild(i).gameObject;
+        }
     }
 
     public void OpenPanel(GameObject open)
     {
+        CloseAllPanels();
         open.SetActive(true);
-    }
-
-    public void ClosePanel(GameObject close)
-    {
-        close.SetActive(false);
     }
 
     public void LoadScene(int sceneNum)
@@ -42,31 +48,31 @@ public class StartMenu : MonoBehaviour
         StartCoroutine(LevelTransitioner(l));
     }
 
-    private void StartLevelStuff()
-    {
-
-    }
-
     public IEnumerator LevelTransitioner(Levels l)
     {
         topDoor.SetTrigger("Close");
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(waitTime);
+
         SceneManager.LoadScene(l.levelIndex);
+
+        CloseAllPanels();
+
+        switch (l.levelIndex)
+        {
+            case 0:
+                instance.transform.Find("Main Menu").gameObject.SetActive(true);
+                break;
+            default:
+                CurserLock();
+                instance.transform.Find("PlayerUI").gameObject.SetActive(true);
+                break;
+        }
 
         FindObjectOfType<AudioManager>().StopAllSongs();
         FindObjectOfType<AudioManager>().Play(l.startingThemeName);
 
         topDoor.SetTrigger("Open");
-    }
-
-    public void LoadLevel(int sceneNum)
-    {
-        CurserLock();
-        instance.transform.Find("PlayerUI").gameObject.SetActive(true);
-
-        Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
-        StartCoroutine(LevelTransitioner(l));
     }
     public void SetTimeScale(float newTime)
     {
@@ -84,6 +90,14 @@ public class StartMenu : MonoBehaviour
         Cursor.visible = true;
     }
 
+    public void CloseAllPanels()
+    {
+        foreach (GameObject panel in panels)
+        {
+            panel.SetActive(false);
+        }
+    }
+
 }
 
 [System.Serializable]
@@ -92,4 +106,5 @@ public class Levels
     public string levelName;
     public int levelIndex; 
     public string startingThemeName;
+    public bool isLevel;
 }

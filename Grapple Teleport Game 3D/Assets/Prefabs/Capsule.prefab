@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 9004976833175813939}
   - component: {fileID: 9004976833175813932}
   - component: {fileID: 9004976833175813933}
+  - component: {fileID: 3100259518860711578}
   - component: {fileID: 9004976833175813938}
   m_Layer: 0
   m_Name: Capsule
@@ -262,6 +263,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ropeLength: 20
   lineRen: {fileID: 9004976833175813938}
+--- !u!114 &3100259518860711578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004976833175813941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47e3716d64881b4aa5efc00199b544a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &9004976833175813938
 LineRenderer:
   m_ObjectHideFlags: 0
