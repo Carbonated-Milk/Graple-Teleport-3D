@@ -7,8 +7,10 @@ public class Player : MonoBehaviour
 {
     public float JumpPow;
     public float speed;
+    public float interpolationNum;
 
     public static float sensetivity = .5f;
+    public static bool physicsBased = false;
     private Camera cam;
     private Rigidbody rb;
     private PlayerControls playerControls;
@@ -22,8 +24,6 @@ public class Player : MonoBehaviour
         playerControls.Player.Enable();
         playerControls.Player.Jump.performed += Jump;
 
-        playerControls.Player.Movement.performed += Movement;
-
         playerControls.Player.Shift.started += Sprint;
         playerControls.Player.Shift.canceled += Sprint;
 
@@ -36,8 +36,20 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>() * speed * Time.deltaTime * 100;
-        rb.AddForce(transform.forward * moveVector.y + transform.right * moveVector.x);
-
+        if(physicsBased)
+        {
+            rb.AddForce(transform.forward * moveVector.y + transform.right * moveVector.x);
+        }
+        else
+        {
+            Vector3 xzVel = Vector3.right * rb.velocity.x + Vector3.forward * rb.velocity.z;
+            Vector3 playerDir = transform.forward * moveVector.y + transform.right * moveVector.x;
+            playerDir *= speed;
+            if(xzVel.sqrMagnitude < playerDir.magnitude || Vector3.Dot(playerDir, xzVel) < 0)
+            {
+                rb.velocity = Vector3.Lerp(xzVel, playerDir, interpolationNum) + rb.velocity.y * Vector3.up;
+            }
+        }
 
         Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity * Time.deltaTime * 100;
         transform.rotation *= Quaternion.Euler(Vector3.up * mouseVector.x);
@@ -61,15 +73,6 @@ public class Player : MonoBehaviour
             rb.AddForce(Vector3.up * JumpPow);
         }
 
-    }
-
-    public void Movement(InputAction.CallbackContext context)
-    {
-        Vector2 moveVector = context.ReadValue<Vector2>() * speed;
-        Vector2 xzVel = Vector2.right * rb.velocity.x + Vector2.up * rb.velocity.z;
-        //rb.velocity = rb.velocity.
-        rb.velocity = (Vector3)Vector2.Lerp(xzVel.normalized, (Vector2)transform.forward * moveVector.y + (Vector2)transform.right * moveVector.x, .5f) * xzVel.magnitude + Vector3.up * rb.velocity.y;
-        //rb.AddForce(transform.forward * moveVector.y + transform.right * moveVector.x);
     }
 
     public void Sprint(InputAction.CallbackContext context)
