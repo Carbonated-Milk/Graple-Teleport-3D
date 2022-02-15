@@ -8,6 +8,9 @@ public class StartMenu : MonoBehaviour
 {
     public Levels[] levels;
 
+    public Animator topDoor;
+    public Animator bottomDoor;
+
     public static StartMenu instance;
     void Awake()
     {
@@ -38,19 +41,30 @@ public class StartMenu : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().StopAllSongs();
         Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
+        StartCoroutine(LevelTransitioner(l.levelIndex));
         FindObjectOfType<AudioManager>().Play(l.startingThemeName);
-        SceneManager.LoadScene(l.levelIndex);
+    }
+
+    public IEnumerator LevelTransitioner(int levelIndex)
+    {
+        topDoor.SetTrigger("Open");
+        bottomDoor.SetTrigger("Open");
+
+        yield return new WaitForSeconds(.6f);
+
+        topDoor.SetTrigger("Close");
+        bottomDoor.SetTrigger("Close");
     }
 
     public void LoadLevel(int sceneNum)
     {
         CurserLock();
-        StartMenu.instance.transform.Find("PlayerUI").gameObject.SetActive(true);
+        instance.transform.Find("PlayerUI").gameObject.SetActive(true);
 
         FindObjectOfType<AudioManager>().StopAllSongs();
         Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
+        StartCoroutine(LevelTransitioner(l.levelIndex));
         FindObjectOfType<AudioManager>().Play(l.startingThemeName);
-        SceneManager.LoadScene(l.levelIndex);
     }
     public void SetTimeScale(float newTime)
     {

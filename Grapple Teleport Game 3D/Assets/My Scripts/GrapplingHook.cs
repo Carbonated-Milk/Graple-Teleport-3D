@@ -112,7 +112,7 @@ public class GrapplingHook : MonoBehaviour, IAction
             Physics.Raycast(transform.position, cam.transform.forward, out hit, shootLength);
             if (hit.collider != null)
             {
-                
+                Player.physicsBased = true;
                 lockedPos = hit.point;
                 grapleCaught = true;
             }
@@ -129,6 +129,7 @@ public class GrapplingHook : MonoBehaviour, IAction
         shootLength = (lockedPos - transform.position).magnitude;
         grapleRadius = 0f;
         grapleCaught = false;
+        Player.physicsBased = false;
         while (shootLength > 0f)
         {
             lockedPos = Vector3.zero;
@@ -145,6 +146,7 @@ public class GrapplingHook : MonoBehaviour, IAction
         grapleRadius = 0f;
         grapleCaught = false;
         lockedPos = Vector3.zero;
+        Player.physicsBased = false;
     }
 
     public void SetGrapleRadius()
