@@ -16,25 +16,50 @@ public class GrapplingHook : MonoBehaviour, IAction
 
     public static bool grapleCaught;
 
+    private PlayerControls playerControls;
+
     public void Action(int state)
     {
         if(state == 0)
         {
-            StopAllCoroutines();
-            StartCoroutine(ShootHook());
+            if(lockedPos == Vector3.zero)
+            {
+                StopAllCoroutines();
+                StartCoroutine(ShootHook());
+            }
+            else
+            {
+                StopAllCoroutines();
+                StartCoroutine(RetractHook());
+            }
+            
         }
-        if(state == 1)
+        if (state == 1 && lockedPos == Vector3.zero)
         {
             StopAllCoroutines();
             StartCoroutine(RetractHook());
         }
-        
+
+
     }
     void Start()
     {
         //Physics.queriesStartInColliders = false;
         rb = GetComponent<Rigidbody>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
+        playerControls = new PlayerControls();
+        playerControls.Player.Enable();
+        playerControls.Player.Jump.performed += RetractHook;
+    }
+
+    public void RetractHook(InputAction.CallbackContext context)
+    {
+        if(context.performed && grapleCaught && lockedPos != Vector3.zero)
+        {
+            StopAllCoroutines();
+            StartCoroutine(RetractHook());
+        }
     }
     void Update()
     {
