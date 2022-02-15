@@ -230,8 +230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpPow: 300
-  speed: 10
-  interpolationNum: 0.1
+  speed: 3
+  interpolationNum: 0.09
 --- !u!54 &9004976833175813932
 Rigidbody:
   m_ObjectHideFlags: 0

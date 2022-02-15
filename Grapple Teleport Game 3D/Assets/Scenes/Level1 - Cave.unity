@@ -190,6 +190,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &658621334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5148817236446094103, guid: e9126219d1bdfc84eb2d49b93040de33, type: 3}
+  m_PrefabInstance: {fileID: 1267454728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &658621336
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658621334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.019999996, z: 0.0007763173}
+  m_Center: {x: 0, y: 3.66944e-18, z: -0.000388158}
 --- !u!1 &817920940
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +429,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6b58750f10648a249b5f62f90658d742, type: 2}
+    - target: {fileID: 5148817236446094103, guid: e9126219d1bdfc84eb2d49b93040de33, type: 3}
+      propertyPath: m_TagString
+      value: Instant Death
+      objectReference: {fileID: 0}
     - target: {fileID: 8442510506162454399, guid: e9126219d1bdfc84eb2d49b93040de33, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -940,14 +962,6 @@ PrefabInstance:
     - target: {fileID: 9004976833175813937, guid: 39166c27ba6b7a548bb9e8bd4b4b4826, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9004976833175813939, guid: 39166c27ba6b7a548bb9e8bd4b4b4826, type: 3}
-      propertyPath: speed
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9004976833175813939, guid: 39166c27ba6b7a548bb9e8bd4b4b4826, type: 3}
-      propertyPath: interpolationNum
-      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 9004976833175813941, guid: 39166c27ba6b7a548bb9e8bd4b4b4826, type: 3}
       propertyPath: m_Name

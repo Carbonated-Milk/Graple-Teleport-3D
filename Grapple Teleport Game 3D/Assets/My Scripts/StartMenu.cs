@@ -9,7 +9,6 @@ public class StartMenu : MonoBehaviour
     public Levels[] levels;
 
     public Animator topDoor;
-    public Animator bottomDoor;
 
     public static StartMenu instance;
     void Awake()
@@ -39,21 +38,26 @@ public class StartMenu : MonoBehaviour
 
     public void LoadScene(int sceneNum)
     {
-        FindObjectOfType<AudioManager>().StopAllSongs();
         Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
-        StartCoroutine(LevelTransitioner(l.levelIndex));
-        FindObjectOfType<AudioManager>().Play(l.startingThemeName);
+        StartCoroutine(LevelTransitioner(l));
     }
 
-    public IEnumerator LevelTransitioner(int levelIndex)
+    private void StartLevelStuff()
     {
-        topDoor.SetTrigger("Open");
-        bottomDoor.SetTrigger("Open");
 
-        yield return new WaitForSeconds(.6f);
+    }
 
+    public IEnumerator LevelTransitioner(Levels l)
+    {
         topDoor.SetTrigger("Close");
-        bottomDoor.SetTrigger("Close");
+
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(l.levelIndex);
+
+        FindObjectOfType<AudioManager>().StopAllSongs();
+        FindObjectOfType<AudioManager>().Play(l.startingThemeName);
+
+        topDoor.SetTrigger("Open");
     }
 
     public void LoadLevel(int sceneNum)
@@ -61,10 +65,8 @@ public class StartMenu : MonoBehaviour
         CurserLock();
         instance.transform.Find("PlayerUI").gameObject.SetActive(true);
 
-        FindObjectOfType<AudioManager>().StopAllSongs();
         Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
-        StartCoroutine(LevelTransitioner(l.levelIndex));
-        FindObjectOfType<AudioManager>().Play(l.startingThemeName);
+        StartCoroutine(LevelTransitioner(l));
     }
     public void SetTimeScale(float newTime)
     {
