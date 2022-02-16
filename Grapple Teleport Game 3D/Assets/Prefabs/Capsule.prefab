@@ -5111,8 +5111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55422b9ed7b487848b75b8c2dcf6cf17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPow: 300
-  speed: 3
+  JumpPow: 500
+  speed: 50
+  physicsSpeed: 5
   interpolationNum: 0.09
 --- !u!114 &9004976833175813933
 MonoBehaviour:
@@ -5203,7 +5204,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b387e47b8575b49458e88e9a2beae6dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

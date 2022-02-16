@@ -7,7 +7,10 @@ public class Player : MonoBehaviour
 {
     public float JumpPow;
     public float speed;
+    public float physicsSpeed;
     public float interpolationNum;
+
+    private bool onGround = true;
 
     public static float sensetivity = .5f;
     public static bool physicsBased = false;
@@ -47,20 +50,21 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>() * speed * Time.deltaTime * 100;
-        if(physicsBased)
+        Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>() * Time.deltaTime * 100;
+        if(!onGround)
         {
-            rb.AddForce(transform.forward * moveVector.y + transform.right * moveVector.x);
+            rb.AddForce((transform.forward * moveVector.y + transform.right * moveVector.x) * physicsSpeed);
         }
         else
         {
             Vector3 xzVel = Vector3.right * rb.velocity.x + Vector3.forward * rb.velocity.z;
             Vector3 playerDir = transform.forward * moveVector.y + transform.right * moveVector.x;
             playerDir *= speed;
-            if(xzVel.sqrMagnitude < playerDir.magnitude || Vector3.Dot(playerDir, xzVel) < 0)
-            {
-                rb.velocity = Vector3.Lerp(xzVel, playerDir, interpolationNum) + rb.velocity.y * Vector3.up;
-            }
+            rb.velocity = Vector3.MoveTowards(xzVel, playerDir, interpolationNum) + rb.velocity.y * Vector3.up;
+            //if(xzVel.sqrMagnitude < playerDir.magnitude || Vector3.Dot(playerDir, xzVel) < -.5)
+            //{
+            //    
+            //}
         }
 
         Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity * Time.deltaTime * 100;
@@ -137,6 +141,19 @@ public class Player : MonoBehaviour
         {
             GetComponent<Lives>().Die();
         }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        onGround = true;
+    }
+    private void OnCollisionStay(Collision other)
+    {
+        onGround = true;
+    }
+    private void OnCollisionExit(Collision other)
+    {
+        onGround = false;
     }
 }
 
