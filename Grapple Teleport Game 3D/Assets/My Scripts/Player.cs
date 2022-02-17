@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public float physicsSpeed;
     public float interpolationNum;
 
+    private CharacterController moveControl;
+
     private bool onGround = true;
 
     public static float sensetivity = .5f;
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
     private PlayerControls playerControls;
 
     public static GameObject playerObject;
+
+    float xRotation = 0;
 
     private void Awake()
     {
@@ -34,6 +38,7 @@ public class Player : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         cam = transform.GetComponentInChildren<Camera>();
+        moveControl = GetComponent<CharacterController>();
 
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
@@ -60,26 +65,19 @@ public class Player : MonoBehaviour
             Vector3 xzVel = Vector3.right * rb.velocity.x + Vector3.forward * rb.velocity.z;
             Vector3 playerDir = transform.forward * moveVector.y + transform.right * moveVector.x;
             playerDir *= speed;
-            rb.velocity = Vector3.MoveTowards(xzVel, playerDir, interpolationNum) + rb.velocity.y * Vector3.up;
+            //rb.velocity = Vector3.MoveTowards(xzVel, playerDir, interpolationNum) + rb.velocity.y * Vector3.up;
             //if(xzVel.sqrMagnitude < playerDir.magnitude || Vector3.Dot(playerDir, xzVel) < -.5)
             //{
             //    
             //}
+            moveControl.Move(playerDir * Time.deltaTime / 20);
         }
 
         Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity * Time.deltaTime * 100;
-        transform.rotation *= Quaternion.Euler(Vector3.up * mouseVector.x);
-        cam.transform.localRotation *= Quaternion.Euler(Vector3.right * -mouseVector.y);
-
-        /*if(cam.transform.localRotation.eulerAngles.x > 89 && cam.transform.localRotation.eulerAngles.x < 150)
-        {
-            cam.transform.localRotation = Quaternion.Euler(Vector3.right * 89);
-        }
-        else if(cam.transform.localRotation.eulerAngles.x < 310 && cam.transform.localRotation.eulerAngles.x > 100)
-        {
-            cam.transform.localRotation = Quaternion.Euler(Vector3.right * -89);
-        }
-        Debug.Log(cam.transform.localRotation.eulerAngles.x);*/
+        xRotation += mouseVector.y;
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        transform.Rotate(Vector3.up * mouseVector.x);
+        cam.transform.localRotation = Quaternion.Euler(Vector3.right * -xRotation);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -146,14 +144,20 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         onGround = true;
+        moveControl.enabled = true;
+        rb.isKinematic = true;
     }
     private void OnCollisionStay(Collision other)
     {
         onGround = true;
+        moveControl.enabled = true;
+        rb.isKinematic = true;
     }
     private void OnCollisionExit(Collision other)
     {
-        onGround = false;
+        //onGround = false;
+        //moveControl.enabled =false;
+        //rb.isKinematic = false;
     }
 }
 

@@ -5021,7 +5021,9 @@ GameObject:
   - component: {fileID: 9004976833175813937}
   - component: {fileID: 9004976833175813936}
   - component: {fileID: 9004976833175813943}
+  - component: {fileID: -5980226171376092541}
   - component: {fileID: 9004976833175813939}
+  - component: {fileID: -4058929846367050051}
   - component: {fileID: 9004976833175813933}
   - component: {fileID: 4401630532427553373}
   - component: {fileID: 3100259518860711578}
@@ -5099,6 +5101,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!143 &-5980226171376092541
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004976833175813941}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.7
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9004976833175813939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5112,9 +5132,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpPow: 500
-  speed: 50
+  speed: 100
   physicsSpeed: 5
   interpolationNum: 0.09
+--- !u!114 &-4058929846367050051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004976833175813941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc12bff018eb5d640b3c06cbb7ef317d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9004976833175813933
 MonoBehaviour:
   m_ObjectHideFlags: 0
