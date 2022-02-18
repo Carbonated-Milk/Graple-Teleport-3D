@@ -48,8 +48,18 @@ MonoBehaviour:
     sounds:
     - name: CaveTheme
       clip: {fileID: 8300000, guid: 3971c07cc9c83ad478b14781e58b361a, type: 3}
-      volume: 0.457
+      volume: 0.8
+      adjustedVolume: 0
       pitch: 1
       loop: 1
+      source: {fileID: 0}
+  - name: Sound Effects
+    sounds:
+    - name: Gunshot
+      clip: {fileID: 8300000, guid: c5c1338bf79b59d46bed4f5213b7bbfa, type: 3}
+      volume: 0.5
+      adjustedVolume: 0
+      pitch: 1
+      loop: 0
       source: {fileID: 0}
   sounds: []

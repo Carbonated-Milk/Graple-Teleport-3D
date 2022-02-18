@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
 
     float xRotation = 0;
 
+    private Transform groundCheck;
+    public LayerMask groundMask;
+
     private void Awake()
     {
         if (playerObject == null)
@@ -51,26 +54,22 @@ public class Player : MonoBehaviour
         playerControls.Player.Interact.canceled += Action;
 
         playerControls.Player.Tab.performed += TabMenu;
+
+        groundCheck = transform.Find("Ground Check");
     }
 
     private void Update()
     {
+        onGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+        if(onGround && !physicsBased)
+        {
+            OnGround();
+        }
+
         Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>() * Time.deltaTime * 100;
         if(!onGround)
         {
             rb.AddForce((transform.forward * moveVector.y + transform.right * moveVector.x) * physicsSpeed);
-        }
-        else
-        {
-            Vector3 xzVel = Vector3.right * rb.velocity.x + Vector3.forward * rb.velocity.z;
-            Vector3 playerDir = transform.forward * moveVector.y + transform.right * moveVector.x;
-            playerDir *= speed;
-            //rb.velocity = Vector3.MoveTowards(xzVel, playerDir, interpolationNum) + rb.velocity.y * Vector3.up;
-            //if(xzVel.sqrMagnitude < playerDir.magnitude || Vector3.Dot(playerDir, xzVel) < -.5)
-            //{
-            //    
-            //}
-            moveControl.Move(playerDir * Time.deltaTime / 20);
         }
 
         Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity * Time.deltaTime * 100;
@@ -141,23 +140,35 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    /*private void OnCollisionEnter(Collision other)
     {
-        onGround = true;
-        moveControl.enabled = true;
-        rb.isKinematic = true;
+        OnGround();
     }
     private void OnCollisionStay(Collision other)
     {
-        onGround = true;
-        moveControl.enabled = true;
-        rb.isKinematic = true;
+        OnGround();
     }
     private void OnCollisionExit(Collision other)
     {
-        //onGround = false;
-        //moveControl.enabled =false;
-        //rb.isKinematic = false;
+        //OffGround();
+    }*/
+
+    public void OnGround()
+    {
+        onGround = true;
+        GetComponent<ControllerMove>().enabled = true;
+        moveControl.enabled = true;
+        rb.isKinematic = true;
+    }
+
+    public void OffGround()
+    {
+        onGround = false;
+        GetComponent<ControllerMove>().enabled = false;
+        rb.isKinematic = false;
+        //rb.velocity = GetComponent<CharacterController>().velocity;
+        moveControl.enabled =false;
+        
     }
 }
 

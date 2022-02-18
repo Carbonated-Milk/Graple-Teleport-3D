@@ -29,6 +29,8 @@ public class GrapplingHook : MonoBehaviour, IAction
             }
             else
             {
+
+                Player.physicsBased = false;
                 StopAllCoroutines();
                 StartCoroutine(RetractHook());
             }
@@ -137,7 +139,7 @@ public class GrapplingHook : MonoBehaviour, IAction
             Physics.Raycast(transform.position, cam.transform.forward, out hit, shootLength);
             if (hit.collider != null)
             {
-                Player.physicsBased = true;
+                GetComponent<Player>().OffGround();
                 lockedPos = hit.point;
                 grapleCaught = true;
             }
