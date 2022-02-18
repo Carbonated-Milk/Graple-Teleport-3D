@@ -559,6 +559,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Respawn
       objectReference: {fileID: 0}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Lives, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4205577868679785038, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
       propertyPath: m_Name
       value: MenuManager

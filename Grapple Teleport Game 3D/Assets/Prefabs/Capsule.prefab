@@ -5089,7 +5089,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9004976833175813941}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3199997, y: -0.33, z: 2.3780003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9004976832728920122}
@@ -5155,7 +5155,7 @@ CharacterController:
   m_GameObject: {fileID: 9004976833175813941}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
@@ -5180,6 +5180,9 @@ MonoBehaviour:
   speed: 100
   physicsSpeed: 5
   interpolationNum: 0.09
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &-4058929846367050051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5192,8 +5195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc12bff018eb5d640b3c06cbb7ef317d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallMultiplier: 0.05
-  jumpPow: 0.3
+  speed: 2
+  fallMultiplier: 2
+  jumpPow: 15
   physicsSpeed: 5
   interpolationNum: 0
   groundMask:
@@ -5220,7 +5224,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9004976833175813941}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ae363072391b2746824be70b7a5c6a6, type: 3}
   m_Name: 
@@ -5239,6 +5243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47e3716d64881b4aa5efc00199b544a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawn: {x: 0, y: 0, z: 0}
 --- !u!136 &9004976833175813942
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -97,7 +97,6 @@ public class StartMenu : MonoBehaviour
             panel.SetActive(false);
         }
     }
-
 }
 
 [System.Serializable]

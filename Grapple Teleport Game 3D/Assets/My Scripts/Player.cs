@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        
         if (playerObject == null)
         {
             playerObject = gameObject;

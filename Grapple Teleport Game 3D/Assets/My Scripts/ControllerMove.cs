@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class ControllerMove : MonoBehaviour
 {
+    public float speed;
     public float fallMultiplier;
     public float jumpPow;
-    private float speed;
     public float physicsSpeed;
     public float interpolationNum;
 
@@ -32,7 +32,7 @@ public class ControllerMove : MonoBehaviour
         playerControls.Player.Jump.performed += Jump;
 
 
-        speed = GetComponent<Player>().speed;
+        //speed = GetComponent<Player>().speed;
     }
 
     private void Update()
@@ -41,17 +41,21 @@ public class ControllerMove : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -0.01f;
+            velocity.y = -.1f;
         }
 
-        Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>() * Time.deltaTime;
+        Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>();
         Vector3 playerDir = transform.forward * moveVector.y + transform.right * moveVector.x;
         playerDir *= speed;
-        moveControl.Move(playerDir * Time.deltaTime * 5);
 
+
+
+        moveControl.Move(playerDir * Time.deltaTime * 5);
         velocity.y += gravity * Time.deltaTime * fallMultiplier;
 
-        moveControl.Move(velocity);
+        moveControl.Move(velocity * Time.deltaTime);
+
+
     }
 
     public void Jump(InputAction.CallbackContext context)
