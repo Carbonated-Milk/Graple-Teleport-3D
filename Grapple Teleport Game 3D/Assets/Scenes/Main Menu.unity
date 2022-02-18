@@ -552,16 +552,44 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 54607592}
     - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3100259518860711578, guid: 39166c27ba6b7a548bb9e8bd4b4b4826, type: 3}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3100259518860711578, guid: 39166c27ba6b7a548bb9e8bd4b4b4826, type: 3}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Respawn
       objectReference: {fileID: 0}
     - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Die2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Lives, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Lives, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577868414057509, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4205577868679785038, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
       propertyPath: m_Name
@@ -615,9 +643,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4205577868903528517, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577869530645082, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577869693391970, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577869693391970, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_Color.b
+      value: 0.030472687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577869693391970, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205577869693391970, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_Color.r
+      value: 0.20754719
+      objectReference: {fileID: 0}
     - target: {fileID: 4205577869787461220, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 54607592}
+    - target: {fileID: 4205577869799084886, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d5b9102eda2cb9479c3321aba204815, type: 3}

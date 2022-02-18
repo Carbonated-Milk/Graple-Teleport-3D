@@ -20,42 +20,23 @@ public class Lives : MonoBehaviour
         respawn = transform.position;
         thisGameObject = gameObject.transform;
     }
-    void LateUpdate()
-    {
-        
-        if(needstoRespawn)
-        {
-            GetComponent<CharacterController>().transform.position = respawn;
-            
-        }
-        if(GetComponent<CharacterController>().transform.position == respawn)
-        {
-            needstoRespawn = false;
-        }
-    }
 
     public void Respawn()
     {
-        GetComponent<CharacterController>().Move(respawn - GetComponent<CharacterController>().transform.position);
-        GetComponent<Rigidbody>().position = respawn;
-        transform.position = respawn;
-
         Time.timeScale = 1;
         StartMenu.instance.CurserLock();
         StartMenu.instance.OpenPanel(StartMenu.instance.transform.Find("PlayerUI").gameObject);
 
         needstoRespawn = true;
-        GetComponent<CharacterController>().Move(respawn - GetComponent<CharacterController>().transform.position);
-        GetComponent<Rigidbody>().position = respawn;
 
-        transform.position = respawn;
-        GetComponent<CharacterController>().Move(respawn - GetComponent<CharacterController>().transform.position);
-        GetComponent<Rigidbody>().position = respawn;
-        transform.position = respawn;
-        
+
     }
     public void Die()
     {
+        GetComponent<CharacterController>().Move(respawn - GetComponent<CharacterController>().transform.position);
+        GetComponent<Rigidbody>().position = respawn;
+        transform.position = respawn;
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -65,9 +46,5 @@ public class Lives : MonoBehaviour
 
         Time.timeScale = 0;
 
-        GetComponent<CharacterController>().Move(respawn - GetComponent<CharacterController>().transform.position);
-        GetComponent<Rigidbody>().position = respawn;
-        transform.position = respawn;
-        
     }
 }
