@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
             rb.AddForce((transform.forward * moveVector.y + transform.right * moveVector.x) * physicsSpeed);
         }
 
-        Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity * Time.deltaTime * 100;
+        Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity;
         xRotation += mouseVector.y;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         transform.Rotate(Vector3.up * mouseVector.x);
@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
         }
         else if (context.canceled)
         {
-            action.Action(1);
+            //action.Action(1);
         }
     }
 
@@ -141,25 +141,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*private void OnCollisionEnter(Collision other)
-    {
-        OnGround();
-    }
-    private void OnCollisionStay(Collision other)
-    {
-        OnGround();
-    }
-    private void OnCollisionExit(Collision other)
-    {
-        //OffGround();
-    }*/
-
     public void OnGround()
     {
         onGround = true;
         GetComponent<ControllerMove>().enabled = true;
         moveControl.enabled = true;
         rb.isKinematic = true;
+
+        GetComponent<IAction>().Action(1);
     }
 
     public void OffGround()
@@ -171,8 +160,7 @@ public class Player : MonoBehaviour
             GetComponent<ControllerMove>().enabled = false;
         }
         rb.isKinematic = false;
-        moveControl.enabled =false;
-        
+        moveControl.enabled = false;
     }
 }
 

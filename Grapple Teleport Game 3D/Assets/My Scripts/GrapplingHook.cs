@@ -5,9 +5,13 @@ using UnityEngine.InputSystem;
 
 public class GrapplingHook : MonoBehaviour, IAction
 {
-    private Camera cam;
+    private Transform cam;
     public float ropeLength;
     public LineRenderer lineRen;
+
+    public GameObject plunger;
+    [HideInInspector] public GameObject activePlunger;
+    public float throwSpeed;
 
     Rigidbody rb;
     Vector3 lockedPos;
@@ -25,21 +29,19 @@ public class GrapplingHook : MonoBehaviour, IAction
             if(lockedPos == Vector3.zero)
             {
                 StopAllCoroutines();
-                StartCoroutine(ShootHook());
+                ShootPlunger();
             }
             else
             {
 
                 Player.physicsBased = false;
-                StopAllCoroutines();
-                StartCoroutine(RetractHook());
+                Detatch();
             }
             
         }
-        if (state == 1 && lockedPos == Vector3.zero)
+        if (state == 1 && lockedPos != Vector3.zero)
         {
-            StopAllCoroutines();
-            StartCoroutine(RetractHook());
+            Detatch();
         }
 
 
@@ -48,7 +50,7 @@ public class GrapplingHook : MonoBehaviour, IAction
     {
         //Physics.queriesStartInColliders = false;
         rb = GetComponent<Rigidbody>();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().transform;
 
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
@@ -59,24 +61,11 @@ public class GrapplingHook : MonoBehaviour, IAction
     {
         if(context.performed && grapleCaught && lockedPos != Vector3.zero)
         {
-            StopAllCoroutines();
-            StartCoroutine(RetractHook());
+            Detatch();
         }
     }
     void Update()
     {
-        /*if(Input.GetMouseButtonDown(0))
-        {
-            StopAllCoroutines();
-            StartCoroutine(ShootHook());
-        }
-        if(Input.GetMouseButtonUp(0))
-        {
-            StopAllCoroutines();
-            StartCoroutine(RetractHook());
-        }*/
-        
-
         if (Vector3.Dot(rb.velocity, lockedPos - transform.position) <= 0  && lockedPos != Vector3.zero)
         {
             if(grapleRadius == 0)
@@ -94,7 +83,7 @@ public class GrapplingHook : MonoBehaviour, IAction
         else
         {
             lineRen.SetPosition(0, transform.position);
-            lineRen.SetPosition(1, transform.position + shootLength * cam.transform.forward);
+            lineRen.SetPosition(1, transform.position + shootLength * cam.forward);
         }
 
         if(grapleCaught)
@@ -102,7 +91,7 @@ public class GrapplingHook : MonoBehaviour, IAction
             Debug.DrawLine(transform.position, lockedPos, Color.cyan);
         }
 
-        Debug.DrawLine(transform.position, transform.position + shootLength * cam.transform.forward);
+        Debug.DrawLine(transform.position, transform.position + shootLength * cam.forward);
     }
 
     public void GrappleVelocity(Vector3 grapleVector)
@@ -120,16 +109,30 @@ public class GrapplingHook : MonoBehaviour, IAction
         }
         
         Debug.DrawLine(transform.position, transform.position + (Vector3)(grapleDirection * rb.velocity.sqrMagnitude / grapleRadius), Color.red);
-        /*
-        AddVelocity += grapleDirection * rb.velocity.sqrMagnitude / grapleRadius;
-        
-        //AddVelocity += Vector3.Dot(rb.velocity.normalized, Vector3.down) * Vector3.down * Physics.gravity;
-        Debug.DrawLine(transform.position, transform.position + Vector3ify(Vector3.Dot(rb.velocity.normalized, Vector3.down) * Vector3.down * Physics.gravity), Color.green);
-        */
-        //rb.AddForce(AddVelocity);
     }
 
-    IEnumerator ShootHook()
+    public void ShootPlunger()
+    {
+        activePlunger = Instantiate(plunger) as GameObject;
+        activePlunger.transform.position = cam.position + cam.forward * 2;
+        activePlunger.GetComponent<Rigidbody>().velocity = cam.forward * throwSpeed;
+        activePlunger.GetComponent<Plunger>().hookScript = this;
+    }
+
+    public void Attatched(Vector3 caughtSpot)
+    {
+        GetComponent<Player>().OffGround();
+        lockedPos = caughtSpot;
+        grapleCaught = true;
+    }
+
+    public void Detatch()
+    {
+        TurnOffGrapple();
+        lockedPos = Vector3.zero;
+    }
+
+    /*IEnumerator ShootHook()
     {
         while (shootLength < ropeLength)
         {
@@ -149,7 +152,7 @@ public class GrapplingHook : MonoBehaviour, IAction
         if(!grapleCaught)
         {
             StartCoroutine(RetractHook());
-        } 
+        }
     }
     IEnumerator RetractHook()
     {
@@ -164,7 +167,7 @@ public class GrapplingHook : MonoBehaviour, IAction
             yield return null;
         }
         shootLength = 0;
-    }
+    }*/
 
     public void TurnOffGrapple()
     {

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Lives : MonoBehaviour
+public class Lives : MonoBehaviour, IDamagable
 {
+    public int health;
+    int currentHealth;
     public Vector3 respawn;
     public static Transform thisGameObject;
 
@@ -17,6 +19,7 @@ public class Lives : MonoBehaviour
     }
     void Start()
     {
+        currentHealth = health;
         respawn = transform.position;
         thisGameObject = gameObject.transform;
     }
@@ -53,4 +56,14 @@ public class Lives : MonoBehaviour
         Time.timeScale = 0;
 
     }
+
+    public void Damaged(int damage)
+    {
+        currentHealth -= damage;
+    }
+}
+
+public interface IDamagable
+{
+    void Damaged(int damage);
 }
