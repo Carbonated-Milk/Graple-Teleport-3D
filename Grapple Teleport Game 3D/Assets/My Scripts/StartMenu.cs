@@ -97,6 +97,11 @@ public class StartMenu : MonoBehaviour
             panel.SetActive(false);
         }
     }
+
+    public void Respawn()
+    {
+        FindObjectOfType<Lives>().Respawn();
+    }
 }
 
 [System.Serializable]

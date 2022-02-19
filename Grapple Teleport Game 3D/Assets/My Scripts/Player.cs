@@ -165,9 +165,12 @@ public class Player : MonoBehaviour
     public void OffGround()
     {
         onGround = false;
-        GetComponent<ControllerMove>().enabled = false;
+        if(GetComponent<ControllerMove>().enabled == true)
+        {
+            rb.velocity = GetComponent<CharacterController>().velocity;
+            GetComponent<ControllerMove>().enabled = false;
+        }
         rb.isKinematic = false;
-        //rb.velocity = GetComponent<CharacterController>().velocity;
         moveControl.enabled =false;
         
     }

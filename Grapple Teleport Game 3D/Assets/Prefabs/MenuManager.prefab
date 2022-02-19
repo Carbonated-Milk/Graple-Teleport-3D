@@ -1020,8 +1020,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3100259518860711578, guid: 39166c27ba6b7a548bb9e8bd4b4b4826, type: 3}
-        m_TargetAssemblyTypeName: Lives, Assembly-CSharp
+      - m_Target: {fileID: 4205577868679785041}
+        m_TargetAssemblyTypeName: StartMenu, Assembly-CSharp
         m_MethodName: Respawn
         m_Mode: 1
         m_Arguments:
