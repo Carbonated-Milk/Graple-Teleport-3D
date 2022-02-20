@@ -23,7 +23,7 @@ public class Shoot : MonoBehaviour
 
     public void ShootGun(InputAction.CallbackContext context)
     {
-        RaycastHit hit;
+        /*RaycastHit hit;
         FindObjectOfType<AudioManager>().Play("Gunshot");
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
         {
@@ -31,7 +31,7 @@ public class Shoot : MonoBehaviour
             GameObject particals = Instantiate(hitDust);
             particals.transform.position = hit.point;
             Destroy(particals, 2);
-        }
+        }*/
 
     }
     void Update()

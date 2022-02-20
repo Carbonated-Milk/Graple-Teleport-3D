@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public static bool physicsBased = false;
     private Camera cam;
     private Rigidbody rb;
-    private PlayerControls playerControls;
+    public PlayerControls playerControls;
 
     public static GameObject playerObject;
 
@@ -58,8 +58,6 @@ public class Player : MonoBehaviour
 
         playerControls.Player.Tab.performed += TabMenu;
         groundCheck = transform.Find("Ground Check");
-
-        //playerControls.Dispose();
     }
 
     private void Update()

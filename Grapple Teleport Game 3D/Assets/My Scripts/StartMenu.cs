@@ -58,6 +58,10 @@ public class StartMenu : MonoBehaviour
 
     public IEnumerator LevelTransitioner(Levels l)
     {
+        try
+        {
+            FindObjectOfType<Player>().playerControls.Player.Disable();
+        }catch{}
         topDoor.SetTrigger("Close");
 
         yield return new WaitForSeconds(waitTime);
