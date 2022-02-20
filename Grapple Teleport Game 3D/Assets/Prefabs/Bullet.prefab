@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4884458542160639066}
   - component: {fileID: 8684530107195711278}
   - component: {fileID: 4323152534175311570}
+  - component: {fileID: 4297129956561162339}
   - component: {fileID: 8122665452251597991}
   - component: {fileID: 5366987383641189556}
   - component: {fileID: 2457744224810579006}
   - component: {fileID: 8112835147567218772}
-  - component: {fileID: 4297129956561162339}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -86,6 +86,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4297129956561162339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019855140331773582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb1dcdae69a4af74a847d7b2097cb0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hurtAmount: 1
 --- !u!135 &8122665452251597991
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4008,7 +4021,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 1
     lifetime:
@@ -4888,16 +4901,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &4297129956561162339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7019855140331773582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb1dcdae69a4af74a847d7b2097cb0aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hurtAmount: 0

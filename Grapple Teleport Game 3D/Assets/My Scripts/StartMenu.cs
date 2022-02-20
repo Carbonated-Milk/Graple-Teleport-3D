@@ -44,7 +44,15 @@ public class StartMenu : MonoBehaviour
 
     public void LoadScene(int sceneNum)
     {
-        Levels l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
+        Levels l = null;
+        if(sceneNum == -1)
+        {
+            l = l = Array.Find(levels, levels => levels.levelIndex == SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            l = Array.Find(levels, levels => levels.levelIndex == sceneNum);
+        }
         StartCoroutine(LevelTransitioner(l));
     }
 

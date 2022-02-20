@@ -5178,7 +5178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpPow: 500
   speed: 100
-  physicsSpeed: 5
+  physicsSpeed: 2.5
   interpolationNum: 0.09
   groundMask:
     serializedVersion: 2
@@ -5246,7 +5246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47e3716d64881b4aa5efc00199b544a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 50
   respawn: {x: 0, y: 0, z: 0}
+  healthBar: {fileID: 0}
 --- !u!136 &9004976833175813942
 CapsuleCollider:
   m_ObjectHideFlags: 0

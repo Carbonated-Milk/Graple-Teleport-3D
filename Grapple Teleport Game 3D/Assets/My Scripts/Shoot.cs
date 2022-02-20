@@ -11,7 +11,7 @@ public class Shoot : MonoBehaviour
     public ParticleSystem muzzle;
     public GameObject hitDust;
 
-    private 
+    private
     void Awake()
     {
         cam = transform.GetComponentInChildren<Camera>();
@@ -25,16 +25,17 @@ public class Shoot : MonoBehaviour
     {
         RaycastHit hit;
         FindObjectOfType<AudioManager>().Play("Gunshot");
-        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
         {
             muzzle.Play();
             GameObject particals = Instantiate(hitDust);
             particals.transform.position = hit.point;
             Destroy(particals, 2);
         }
+
     }
     void Update()
     {
-        
+
     }
 }

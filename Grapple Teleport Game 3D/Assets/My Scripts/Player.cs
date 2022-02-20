@@ -27,9 +27,9 @@ public class Player : MonoBehaviour
     private Transform groundCheck;
     public LayerMask groundMask;
 
-    private void Awake()
+    private void Start()
     {
-        
+
         if (playerObject == null)
         {
             playerObject = gameObject;
@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
             return;
         }
 
+        //must disable when finishded
+        
         rb = GetComponent<Rigidbody>();
         cam = transform.GetComponentInChildren<Camera>();
         moveControl = GetComponent<CharacterController>();
@@ -55,29 +57,33 @@ public class Player : MonoBehaviour
         playerControls.Player.Interact.canceled += Action;
 
         playerControls.Player.Tab.performed += TabMenu;
-
         groundCheck = transform.Find("Ground Check");
+
+        //playerControls.Dispose();
     }
 
     private void Update()
     {
         onGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
-        if(onGround && !physicsBased)
+        if (onGround && !physicsBased)
         {
             OnGround();
         }
 
-        Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>() * Time.deltaTime * 100;
-        if(!onGround)
+        if (Time.deltaTime != 0)
         {
-            rb.AddForce((transform.forward * moveVector.y + transform.right * moveVector.x) * physicsSpeed);
-        }
+            Vector2 moveVector = playerControls.Player.Movement.ReadValue<Vector2>();
+            if (!onGround)
+            {
+                rb.AddForce((transform.forward * moveVector.y + transform.right * moveVector.x) * physicsSpeed);
+            }
 
-        Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity;
-        xRotation += mouseVector.y;
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
-        transform.Rotate(Vector3.up * mouseVector.x);
-        cam.transform.localRotation = Quaternion.Euler(Vector3.right * -xRotation);
+            Vector2 mouseVector = playerControls.Player.Mouse.ReadValue<Vector2>() * sensetivity;
+            xRotation += mouseVector.y;
+            xRotation = Mathf.Clamp(xRotation, -90, 90);
+            transform.Rotate(Vector3.up * mouseVector.x);
+            cam.transform.localRotation = Quaternion.Euler(Vector3.right * -xRotation);
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -126,7 +132,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+
 
     public static void ChangeSensitivity(float newSensetivity)
     {
@@ -135,7 +141,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Instant Death"))
+        if (other.gameObject.CompareTag("Instant Death"))
         {
             GetComponent<Lives>().Die();
         }
@@ -154,7 +160,7 @@ public class Player : MonoBehaviour
     public void OffGround()
     {
         onGround = false;
-        if(GetComponent<ControllerMove>().enabled == true)
+        if (GetComponent<ControllerMove>().enabled == true)
         {
             rb.velocity = GetComponent<CharacterController>().velocity;
             GetComponent<ControllerMove>().enabled = false;

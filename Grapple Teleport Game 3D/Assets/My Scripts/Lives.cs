@@ -10,6 +10,8 @@ public class Lives : MonoBehaviour, IDamagable
     public Vector3 respawn;
     public static Transform thisGameObject;
 
+    public GameObject healthBar;
+
     bool needstoRespawn;
 
     void Awake()
@@ -22,11 +24,16 @@ public class Lives : MonoBehaviour, IDamagable
         currentHealth = health;
         respawn = transform.position;
         thisGameObject = gameObject.transform;
+        healthBar = GameObject.FindGameObjectWithTag("HealthBar");
     }
 
     private void Update()
     {
-        //Respawn();
+        try
+        {
+            healthBar.transform.localScale = new Vector3(currentHealth / health, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+        }catch{}
+        
     }
 
     public void Respawn()
@@ -60,6 +67,10 @@ public class Lives : MonoBehaviour, IDamagable
     public void Damaged(int damage)
     {
         currentHealth -= damage;
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
     }
 }
 
