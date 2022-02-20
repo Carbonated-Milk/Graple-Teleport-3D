@@ -36,6 +36,6 @@ public class Plunger : MonoBehaviour
             hookScript.Attatched(col.contacts[0].point);
         }
         rb.isKinematic = true;
-        transform.LookAt(col.contacts[0].normal);
+        transform.forward = -col.contacts[0].normal;
     }
 }

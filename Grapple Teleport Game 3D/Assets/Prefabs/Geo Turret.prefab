@@ -1041,7 +1041,7 @@ MonoBehaviour:
   rotateSpeed: 0.7
   shootAnim: {fileID: 598583381884780798}
   shots: 4
-  delay: 0.05
+  delay: 1
   bullet: {fileID: 7019855140331773582, guid: 7f0fb0147614a064bb7961010623de78, type: 3}
   shootSpeed: 50
 --- !u!135 &1296791075001819302
