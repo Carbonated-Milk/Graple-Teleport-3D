@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-public class StartMenu : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
     public Levels[] levels;
 
@@ -12,15 +12,13 @@ public class StartMenu : MonoBehaviour
 
     private GameObject[] panels;
 
-    public static StartMenu instance;
-
     private float waitTime = 1.5f;
     void Awake()
     {
         //doesn't destroy menu manager
-        if(instance == null)
+        if(GameManager.menuManager == null)
         {
-            instance = this;
+            GameManager.menuManager = this;
         }
         else
         {
@@ -58,10 +56,6 @@ public class StartMenu : MonoBehaviour
 
     public IEnumerator LevelTransitioner(Levels l)
     {
-        try
-        {
-            FindObjectOfType<Player>().playerControls.Player.Disable();
-        }catch{}
         topDoor.SetTrigger("Close");
 
         yield return new WaitForSeconds(waitTime);
@@ -73,16 +67,22 @@ public class StartMenu : MonoBehaviour
         switch (l.levelIndex)
         {
             case 0:
-                instance.transform.Find("Main Menu").gameObject.SetActive(true);
+                transform.Find("Main Menu").gameObject.SetActive(true);
                 break;
             default:
                 CurserLock();
-                instance.transform.Find("PlayerUI").gameObject.SetActive(true);
+                transform.Find("PlayerUI").gameObject.SetActive(true);
                 break;
         }
 
-        FindObjectOfType<AudioManager>().StopAllSongs();
-        FindObjectOfType<AudioManager>().Play(l.startingThemeName);
+        if(GameManager.player != null)
+        {
+            GameManager.player.playerControls.Player.Disable();
+            GameManager.shoot.playerControls.Player.Disable();
+        }
+
+        GameManager.audioManager.StopAllSongs();
+        GameManager.audioManager.Play(l.startingThemeName);
 
         topDoor.SetTrigger("Open");
     }
@@ -112,7 +112,7 @@ public class StartMenu : MonoBehaviour
 
     public void Respawn()
     {
-        FindObjectOfType<Lives>().Respawn();
+        GameManager.lives.Respawn();
     }
 }
 

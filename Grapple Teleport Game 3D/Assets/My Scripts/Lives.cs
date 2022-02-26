@@ -11,11 +11,9 @@ public class Lives : MonoBehaviour, IDamagable
     public static Transform thisGameObject;
 
     public GameObject healthBar;
-
-    bool needstoRespawn;
-
     void Awake()
     {
+        GameManager.lives = this;
         respawn = transform.position;
         thisGameObject = gameObject.transform;
     }
@@ -24,25 +22,22 @@ public class Lives : MonoBehaviour, IDamagable
         currentHealth = health;
         respawn = transform.position;
         thisGameObject = gameObject.transform;
-        healthBar = GameObject.FindGameObjectWithTag("HealthBar");
+        healthBar = GameManager.menuManager.transform.Find("PlayerUI/Health Bar Holder/HealthBar").gameObject;
     }
 
     private void Update()
     {
-        try
-        {
-            healthBar.transform.localScale = new Vector3(currentHealth / health, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
-        }catch{}
-        
+        float healthRatio = (float)currentHealth / (float)health;
+        float healthX = Mathf.Lerp(healthBar.transform.localScale.x, healthRatio, .05f);
+        healthBar.transform.localScale = new Vector3(healthX, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
     public void Respawn()
     {
         Time.timeScale = 1;
-        StartMenu.instance.CurserLock();
-        StartMenu.instance.OpenPanel(StartMenu.instance.transform.Find("PlayerUI").gameObject);
-
-        needstoRespawn = true;
+        currentHealth = health;
+        GameManager.menuManager.CurserLock();
+        GameManager.menuManager.OpenPanel(GameManager.menuManager.transform.Find("PlayerUI").gameObject);
 
 
         GetComponent<CharacterController>().Move(respawn - GetComponent<CharacterController>().transform.position);
@@ -57,8 +52,8 @@ public class Lives : MonoBehaviour, IDamagable
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        StartMenu.instance.transform.Find("PlayerUI").gameObject.SetActive(false);
-        StartMenu.instance.transform.Find("You Died").gameObject.SetActive(true);
+        GameManager.menuManager.transform.Find("PlayerUI").gameObject.SetActive(false);
+        GameManager.menuManager.transform.Find("You Died").gameObject.SetActive(true);
 
         Time.timeScale = 0;
 
@@ -67,7 +62,7 @@ public class Lives : MonoBehaviour, IDamagable
     public void Damaged(int damage)
     {
         currentHealth -= damage;
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -77,4 +72,6 @@ public class Lives : MonoBehaviour, IDamagable
 public interface IDamagable
 {
     void Damaged(int damage);
+
+    void Die();
 }

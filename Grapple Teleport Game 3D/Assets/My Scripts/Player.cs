@@ -20,28 +20,31 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     public PlayerControls playerControls;
 
-    public static GameObject playerObject;
-
     float xRotation = 0;
 
     private Transform groundCheck;
     public LayerMask groundMask;
 
-    private void Start()
+    private void Awake()
     {
-
-        if (playerObject == null)
+        if (GameManager.player == null)
         {
-            playerObject = gameObject;
+            GameManager.player = this;
         }
         else
         {
             Destroy(gameObject);
             return;
         }
+    }
+
+    private void Start()
+    {
+
+
 
         //must disable when finishded
-        
+
         rb = GetComponent<Rigidbody>();
         cam = transform.GetComponentInChildren<Camera>();
         moveControl = GetComponent<CharacterController>();
@@ -111,8 +114,8 @@ public class Player : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            StartMenu.instance.transform.Find("Game Options").gameObject.SetActive(true);
-            StartMenu.instance.transform.Find("PlayerUI").gameObject.SetActive(false);
+            GameManager.menuManager.transform.Find("Game Options").gameObject.SetActive(true);
+            GameManager.menuManager.transform.Find("PlayerUI").gameObject.SetActive(false);
             Time.timeScale = 0;
         }
 

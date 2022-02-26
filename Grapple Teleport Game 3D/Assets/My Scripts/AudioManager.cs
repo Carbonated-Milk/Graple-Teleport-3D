@@ -12,13 +12,12 @@ public class AudioManager : MonoBehaviour
     
     [HideInInspector]
     public static float masterVolume = .5f;
-    public static AudioManager instance;
 
     void Awake()
     {
-        if(instance == null)
+        if(GameManager.audioManager == null)
         {
-            instance = this;
+            GameManager.audioManager = this;
         }
         else
         {

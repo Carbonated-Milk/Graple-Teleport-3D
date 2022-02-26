@@ -11,8 +11,8 @@ public class Finish : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            StartMenu.instance.transform.Find("Level Complete").gameObject.SetActive(true);
-            StartMenu.instance.transform.Find("PlayerUI").gameObject.SetActive(false);
+            GameManager.menuManager.transform.Find("Level Complete").gameObject.SetActive(true);
+            GameManager.menuManager.transform.Find("PlayerUI").gameObject.SetActive(false);
             Time.timeScale = 0;
         }
     }

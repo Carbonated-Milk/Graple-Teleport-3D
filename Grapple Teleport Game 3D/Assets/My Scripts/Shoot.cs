@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 
 public class Shoot : MonoBehaviour
 {
+    public int gunDamage;
     private Camera cam;
-    private PlayerControls playerControls;
+    public PlayerControls playerControls;
 
     public ParticleSystem muzzle;
     public GameObject hitDust;
@@ -14,6 +15,16 @@ public class Shoot : MonoBehaviour
     private
     void Awake()
     {
+        if (GameManager.shoot == null)
+        {
+            GameManager.shoot = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         cam = transform.GetComponentInChildren<Camera>();
 
         playerControls = new PlayerControls();
@@ -23,15 +34,19 @@ public class Shoot : MonoBehaviour
 
     public void ShootGun(InputAction.CallbackContext context)
     {
-        /*RaycastHit hit;
+        RaycastHit hit;
         FindObjectOfType<AudioManager>().Play("Gunshot");
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
         {
+            if(hit.collider.gameObject.GetComponent<IDamagable>() != null)
+            {
+                hit.collider.gameObject.GetComponent<IDamagable>().Damaged(gunDamage);
+            }
             muzzle.Play();
             GameObject particals = Instantiate(hitDust);
             particals.transform.position = hit.point;
             Destroy(particals, 2);
-        }*/
+        }
 
     }
     void Update()
