@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="UIStyles.uss" />
+    <ui:VisualElement name="BackGround" style="align-items: center; justify-content: center; flex-grow: 1;">
+        <ui:Button text="Start" display-tooltip-when-elided="true" name="Start" class="StandardButton" />
+        <ui:Button text="LevelSelect" display-tooltip-when-elided="true" name="LevelSelect" class="StandardButton" />
+        <ui:Button text="Options" display-tooltip-when-elided="true" name="Options" class="StandardButton" />
+    </ui:VisualElement>
+</ui:UXML>
