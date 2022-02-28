@@ -2742,6 +2742,10 @@ MonoBehaviour:
     levelIndex: 1
     startingThemeName: CaveTheme
     isLevel: 0
+  - levelName: RocketLevel
+    levelIndex: 2
+    startingThemeName: CaveTheme
+    isLevel: 1
   topDoor: {fileID: 4205577869939707751}
 --- !u!1 &4205577868723454997
 GameObject:
