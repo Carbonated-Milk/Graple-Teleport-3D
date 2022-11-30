@@ -24,8 +24,8 @@ public class FlyingRobot : MonoBehaviour
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(player.position - transform.position), rotateSpeed * Time.deltaTime);
             Vector3 place2be = -distVector.normalized * targetDist + player.position;
-            Debug.DrawLine(transform.position, place2be, Color.green);
-            Debug.Log(Vector3.MoveTowards(transform.position, place2be, speed * Time.deltaTime));
+            // Debug.DrawLine(transform.position, place2be, Color.green);
+            // Debug.Log(Vector3.MoveTowards(transform.position, place2be, speed * Time.deltaTime));
             transform.position = Vector3.MoveTowards(transform.position, place2be, speed * Time.deltaTime);
             
         }
